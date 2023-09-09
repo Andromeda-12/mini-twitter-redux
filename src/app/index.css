@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Nunito', sans-serif;
+  @apply text-gray-dark text-base font-normal bg-background-gray scrollbar h-full;
+}
+
+.scrollbar::-webkit-scrollbar {
+  @apply bg-gray w-[7px];
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-primary rounded-xl;
+}
