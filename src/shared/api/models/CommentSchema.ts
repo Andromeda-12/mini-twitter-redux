@@ -3,6 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { OmitTypeClass } from './OmitTypeClass';
+
 export type CommentSchema = {
     id: number;
     text: string;
@@ -10,4 +12,5 @@ export type CommentSchema = {
     postId: number;
     createTime: string;
     updateTime: string;
+    user: Array<OmitTypeClass>;
 };

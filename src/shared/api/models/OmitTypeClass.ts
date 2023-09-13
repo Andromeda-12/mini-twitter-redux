@@ -8,8 +8,8 @@ export type OmitTypeClass = {
     firstName: string;
     lastName: string;
     nickname: string;
-    phone: string;
-    email: string;
+    updateTime: string;
+    createTime: string;
     avatarId: number;
     pinnedPostId: number;
     description: string;

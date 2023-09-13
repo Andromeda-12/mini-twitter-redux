@@ -9,4 +9,5 @@ export type UpdateUserDto = {
     firstName: string;
     lastName: string;
     nickname: string;
+    description: string;
 };
