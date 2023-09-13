@@ -2,10 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export { ApiError } from './core/ApiError';
-export { CancelablePromise, CancelError } from './core/CancelablePromise';
-export { OpenAPI } from './core/OpenAPI';
-export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { AuthLoginDto } from './models/AuthLoginDto';
 export type { CommentSchema } from './models/CommentSchema';
@@ -27,11 +23,5 @@ export type { UpdatePostDto } from './models/UpdatePostDto';
 export type { UpdateUserDto } from './models/UpdateUserDto';
 export type { UserDetailSchema } from './models/UserDetailSchema';
 export type { UserSchema } from './models/UserSchema';
-
-export { AuthService } from './services/AuthService';
-export { CommentService } from './services/CommentService';
-export { FileService } from './services/FileService';
-export { InitService } from './services/InitService';
-export { PostService } from './services/PostService';
-export { TagService } from './services/TagService';
-export { UserService } from './services/UserService';
+export * from './api';
+export * from './tags';
