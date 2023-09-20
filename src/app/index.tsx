@@ -7,7 +7,7 @@ import './index.css';
 export function App() {
   return (
     <ReduxProvider store={appStore}>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </ReduxProvider>
   );
 }
