@@ -1,113 +1,126 @@
-import React, {useState} from 'react';
+import { useState } from 'react';
 import {
-    Control,
-    Controller,
-    FieldValues,
-    RegisterOptions,
+  Control,
+  Controller,
+  FieldValues,
+  RegisterOptions,
 } from 'react-hook-form';
-import {MIN_PASSWORD_LENGTH} from '@/constants/validation';
-import {FormFieldContainer} from './FormFieldContainer';
-import {Input} from '../Input';
-import {Progress} from '../Progress';
+import { MIN_PASSWORD_LENGTH } from '@/shared/constants';
+import { FormFieldContainer } from './FormFieldContainer';
+import { Input } from '../Input';
+import { Progress } from '../Progress';
+import { IconButton } from '..';
 
 interface PasswordFormFieldProps {
-    control: Control<any>;
-    name: string;
-    rules: RegisterOptions<FieldValues, string>;
-    label: string;
-    hasPasswordStrengthProgress?: boolean;
+  control: Control<any>;
+  name: string;
+  rules: RegisterOptions<FieldValues, string>;
+  label: string;
+  hasPasswordStrengthProgress?: boolean;
+  disabled?: boolean;
 }
 
 export const PasswordFormField = ({
-    control,
-    name,
-    rules,
-    label,
-    hasPasswordStrengthProgress = false,
+  control,
+  name,
+  rules,
+  label,
+  hasPasswordStrengthProgress = false,
+  disabled,
 }: PasswordFormFieldProps) => {
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-    const [passwordStrength, setPasswordStrength] = useState(0);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState(0);
 
-    const togglePasswordVisibility = () => {
-        setIsPasswordVisible(!isPasswordVisible);
-    };
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
 
-    const calculatePasswordStrength = (password: string) => {
-        const lengthScore = password.length >= MIN_PASSWORD_LENGTH ? 0 : -100;
+  const handlePasswordChange = (password: string) => {
+    const strength = calculatePasswordStrength(password);
+    setPasswordStrength(strength);
+  };
 
-        const lowercaseRegex = /[a-z]/;
-        const uppercaseRegex = /[A-Z]/;
-        const digitRegex = /[0-9]/;
-        // eslint-disable-next-line no-useless-escape
-        const specialCharRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\-\/\\]/;
-        const repeatedCharRegex = /([a-zA-Z0-9])\1{2,}/;
+  return (
+    <Controller
+      control={control}
+      name={name}
+      rules={rules}
+      render={({ field, fieldState: { error } }) => (
+        <FormFieldContainer
+          label={label}
+          name={name}
+          errorText={error?.message}
+        >
+          <Input
+            {...field}
+            disabled={disabled}
+            error={!!error}
+            type={isPasswordVisible ? 'text' : 'password'}
+            endNode={
+              <IconButton
+                variant="ghost"
+                iconName={isPasswordVisible ? 'eye-slash' : 'eye'}
+                onClick={togglePasswordVisibility}
+              />
+            }
+            onChange={e => {
+              handlePasswordChange(e.target.value);
+              field.onChange(e);
+            }}
+          />
 
-        const hasLowercase = lowercaseRegex.test(password);
-        const hasUppercase = uppercaseRegex.test(password);
-        const hasDigit = digitRegex.test(password);
-        const hasSpecialChar = specialCharRegex.test(password);
-        const hasRepeatedChars = repeatedCharRegex.test(password);
+          {hasPasswordStrengthProgress && (
+            <Progress
+              className="mt-[8px]"
+              value={passwordStrength}
+              indicatorClassName={getPasswordStrengthColor(passwordStrength)}
+            />
+          )}
+        </FormFieldContainer>
+      )}
+    />
+  );
+};
 
-        const typesCount = [
-            hasLowercase,
-            hasUppercase,
-            hasDigit,
-            hasSpecialChar,
-        ].filter(Boolean).length;
+const calculatePasswordStrength = (password: string) => {
+  const lengthScore = password.length >= MIN_PASSWORD_LENGTH ? 0 : -100;
 
-        const typesScore = typesCount * 25;
+  const lowercaseRegex = /[a-z]/;
+  const uppercaseRegex = /[A-Z]/;
+  const digitRegex = /[0-9]/;
+  // eslint-disable-next-line no-useless-escape
+  const specialCharRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\-\/\\]/;
+  const repeatedCharRegex = /([a-zA-Z0-9])\1{2,}/;
 
-        const repeatedScore = hasRepeatedChars ? -100 : 0;
+  const hasLowercase = lowercaseRegex.test(password);
+  const hasUppercase = uppercaseRegex.test(password);
+  const hasDigit = digitRegex.test(password);
+  const hasSpecialChar = specialCharRegex.test(password);
+  const hasRepeatedChars = repeatedCharRegex.test(password);
 
-        return Math.max(lengthScore + typesScore + repeatedScore, 0);
-    };
+  const typesCount = [
+    hasLowercase,
+    hasUppercase,
+    hasDigit,
+    hasSpecialChar,
+  ].filter(Boolean).length;
 
-    const getPasswordStrengthColor = (strength: number) => {
-        if (strength >= 100) { return 'bg-green'; }
-        if (strength >= 75) { return 'bg-green'; }
-        if (strength >= 50) { return 'bg-yellow-400'; }
-        return 'bg-red';
-    };
+  const typesScore = typesCount * 25;
 
-    const handlePasswordChange = (password: string) => {
-        const strength = calculatePasswordStrength(password);
-        setPasswordStrength(strength);
-    };
+  const repeatedScore = hasRepeatedChars ? -100 : 0;
 
-    return (
-        <Controller
-            control={control}
-            name={name}
-            rules={rules}
-            render={({field, fieldState: {error}}) => (
-                <FormFieldContainer
-                    label={label}
-                    name={name}
-                    errorText={error?.message}
-                >
-                    <Input
-                        {...field}
-                        error={!!error}
-                        type={isPasswordVisible ? 'text' : 'password'}
-                        iconName={isPasswordVisible ? 'eye-slash' : 'eye'}
-                        onIconClick={togglePasswordVisibility}
-                        onChange={(e) => {
-                            handlePasswordChange(e.target.value);
-                            field.onChange(e);
-                        }}
-                    />
+  return Math.max(lengthScore + typesScore + repeatedScore, 0);
+};
 
-                    {hasPasswordStrengthProgress && (
-                        <Progress
-                            className="mt-[8px]"
-                            value={passwordStrength}
-                            indicatorClassName={getPasswordStrengthColor(
-                                passwordStrength,
-                            )}
-                        />
-                    )}
-                </FormFieldContainer>
-            )}
-        />
-    );
+const getPasswordStrengthColor = (strength: number) => {
+  if (strength >= 100) {
+    return 'bg-green';
+  }
+  if (strength >= 75) {
+    return 'bg-green';
+  }
+  if (strength >= 50) {
+    return 'bg-yellow-400';
+  }
+  return 'bg-red';
 };

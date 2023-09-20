@@ -13,5 +13,5 @@ export * from './Icon';
 export * from './Logo';
 // export * from './Sidebar';
 // export * from './MobileNavbar';
-// export * from './Form';
+export * from './Form';
 export * from './UploadImage';
