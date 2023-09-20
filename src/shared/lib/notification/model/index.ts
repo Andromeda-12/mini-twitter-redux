@@ -1,82 +1,71 @@
-import {v4 as uuidv4} from 'uuid';
-import {createEffect, createEvent, createStore, sample} from 'effector';
+import { v4 as uuidv4 } from 'uuid';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import {
-    Notification,
-    NotificationBody,
-    NotificationPositions,
-    DEFAULT_NOTIFICATION_DURATION,
-    DEFAULT_NOTIFICATION_TITLE,
-    DEFAULT_NOTIFICATION_TYPE,
+  Notification,
+  NotificationBody,
+  NotificationsPosition,
+  DEFAULT_NOTIFICATION_DURATION,
+  DEFAULT_NOTIFICATION_TITLE,
+  DEFAULT_NOTIFICATION_TYPE,
+  DEFAULT_NOTIFICATIONS_POSITION,
 } from '../lib';
+import { useTypedSelector } from '../..';
 
-export const createNotification = createEvent<NotificationBody>();
-export const closeNotification = createEvent<string>();
-const addNotification = createEvent<Notification>();
-const removeNotification = createEvent<string>();
+interface NotificationsState {
+  notifications: Notification[];
+  notificationsPosition: NotificationsPosition;
+}
 
-export const setNotificationsPosition = createEvent<NotificationPositions>();
+const initialState: NotificationsState = {
+  notifications: [],
+  notificationsPosition: DEFAULT_NOTIFICATIONS_POSITION,
+};
 
-const awaitNotificationDurationFx = createEffect(
-    async (notification: Notification) => {
-        await new Promise((res) => setTimeout(res, notification.autoHideDuration));
-        return notification.id;
+const createNotification = (
+  notificationBody: NotificationBody
+): Notification => ({
+  id: uuidv4(),
+  title: notificationBody.title || DEFAULT_NOTIFICATION_TITLE,
+  type: notificationBody.type || DEFAULT_NOTIFICATION_TYPE,
+  autoHideDuration:
+    notificationBody.autoHideDuration || DEFAULT_NOTIFICATION_DURATION,
+  message: notificationBody.message,
+});
+
+const notificationsSlice = createSlice({
+  name: 'notifications',
+  initialState,
+  reducers: {
+    addNotification: (state, action: PayloadAction<NotificationBody>) => {
+      const notificationBody = action.payload;
+
+      const notification = createNotification(notificationBody);
+
+      state.notifications.push(notification);
     },
-);
-
-export const $notificationList = createStore<Notification[]>([]);
-export const $notificationsPosition = createStore<NotificationPositions>(
-    'bottom-right',
-).on(setNotificationsPosition, (_, position) => position);
-
-sample({
-    clock: createNotification,
-    fn: (notificationBody) => {
-        const notificationId = uuidv4();
-
-        const notification: Notification = {
-            id: notificationId,
-            ...notificationBody,
-        };
-
-        if (!notification.type) {
-            notification.type = DEFAULT_NOTIFICATION_TYPE;
-        }
-
-        if (!notification.title) {
-            notification.title = DEFAULT_NOTIFICATION_TITLE;
-        }
-
-        if (!notification.autoHideDuration) {
-            notification.autoHideDuration = DEFAULT_NOTIFICATION_DURATION;
-        }
-
-        return notification;
+    removeNotification: (state, action: PayloadAction<string>) => {
+      state.notifications = state.notifications.filter(
+        notification => notification.id !== action.payload
+      );
     },
-    target: [addNotification, awaitNotificationDurationFx],
+    setNotificationPosition: (
+      state,
+      action: PayloadAction<NotificationsPosition>
+    ) => {
+      state.notificationsPosition = action.payload;
+    },
+  },
 });
 
-sample({
-    clock: addNotification,
-    source: $notificationList,
-    fn: (notifications, notification) => [...notifications, notification],
-    target: $notificationList,
-});
-sample({
-    clock: removeNotification,
-    source: $notificationList,
-    fn: (notifications, id) => notifications.filter((notification) => notification.id !== id),
-    target: $notificationList,
-});
+const useNotifications = () =>
+  useTypedSelector(state => state.notifications.notifications);
+const useNotificationsPosition = () =>
+  useTypedSelector(state => state.notifications.notificationsPosition);
 
-sample({
-    clock: awaitNotificationDurationFx.doneData,
-    source: $notificationList,
-    filter: (nl, id) => !!nl.find((n) => n.id === id),
-    fn: (_, id) => id,
-    target: removeNotification,
-});
-
-sample({
-    clock: closeNotification,
-    target: removeNotification,
-});
+export const notificationModel = {
+  ...notificationsSlice,
+  selectors: {
+    useNotifications,
+    useNotificationsPosition,
+  },
+};

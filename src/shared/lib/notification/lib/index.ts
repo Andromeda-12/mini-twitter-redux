@@ -3,38 +3,23 @@ export type NotificationType = 'error';
 export const DEFAULT_NOTIFICATION_TYPE: NotificationType = 'error';
 export const DEFAULT_NOTIFICATION_TITLE = 'Notification';
 export const DEFAULT_NOTIFICATION_DURATION = 5000;
+export const DEFAULT_NOTIFICATIONS_POSITION: NotificationsPosition =
+  'bottom-right';
 
-export type NotificationPositions =
-    | 'top'
-    | 'top-right'
-    | 'top-left'
-    | 'bottom'
-    | 'bottom-right'
-    | 'bottom-left';
+export type NotificationsPosition =
+  | 'top'
+  | 'top-right'
+  | 'top-left'
+  | 'bottom'
+  | 'bottom-right'
+  | 'bottom-left';
 
 export interface Notification {
-    id: string;
-    message: string;
-    title?: string;
-    type?: NotificationType;
-    autoHideDuration?: number;
+  id: string;
+  message: string;
+  title?: string;
+  type?: NotificationType;
+  autoHideDuration?: number;
 }
 
-export interface NotificationBody {
-    message: string;
-    title?: string;
-    type?: NotificationType;
-    autoHideDuration?: number;
-}
-
-export const createNotificationBody = ({
-    type,
-    title,
-    message,
-    autoHideDuration,
-}: NotificationBody): NotificationBody => ({
-    type,
-    title,
-    message,
-    autoHideDuration,
-});
+export type NotificationBody = Omit<Notification, 'id'>;
