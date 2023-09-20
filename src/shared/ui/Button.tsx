@@ -4,9 +4,9 @@ import { VariantProps, cva } from 'class-variance-authority';
 
 const buttonVariants = cva(
   clsx(
-    'inline-flex items-center justify-center rounded-xl text-base font-medium duration-300 outline-none',
+    'inline-flex w-full items-center justify-center rounded-xl text-base font-medium duration-300 outline-none',
     'focus-visible:ring ring-primary ring-offset-2',
-    'active:scale-95 disabled:active:scale-100 disabled:cursor-not-allowed'
+    'active:scale-95 disabled:active:scale-100 disabled:cursor-not-allowed',
   ),
   {
     variants: {
@@ -14,7 +14,7 @@ const buttonVariants = cva(
         default:
           'bg-primary text-white hover:bg-primary/90 disabled:bg-gray disabled:text-black/10',
         outline:
-          'border border-gray bg-transparent disabled:bg-gray disabled:text-black/10',
+          'border border-gray dark:text-white bg-transparent disabled:bg-gray disabled:text-black/10',
         ghost: 'hover:bg-primary hover:text-white',
         link: 'text-primary underline-offset-4 hover:underline',
       },
