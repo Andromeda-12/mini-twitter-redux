@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Icon, IconNames } from './Icon';
 import { VariantProps, cva } from 'class-variance-authority';
+import { Icon, IconNames } from './Icon';
 
 const iconButtonVariants = cva(
   clsx(
@@ -26,11 +26,13 @@ const iconButtonVariants = cva(
         rounded: 'rounded-full',
       },
     },
-    compoundVariants: [{
-      variant: 'ghost',
-      size: ['default', 'sm', 'lg'],
-      className: 'w-fit h-fit'
-    }],
+    compoundVariants: [
+      {
+        variant: 'ghost',
+        size: ['default', 'sm', 'lg'],
+        className: 'w-fit h-fit',
+      },
+    ],
     defaultVariants: {
       variant: 'default',
       size: 'default',
@@ -49,6 +51,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
   ({ className, iconName, variant, size, ...props }, ref) => (
     <button
       ref={ref}
+      type="button"
       className={iconButtonVariants({ variant, size, className })}
       {...props}
     >
