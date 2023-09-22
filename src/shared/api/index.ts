@@ -25,3 +25,4 @@ export type { UserDetailSchema } from './models/UserDetailSchema';
 export type { UserSchema } from './models/UserSchema';
 export * from './api';
 export * from './tags';
+export * from './sharedActions';

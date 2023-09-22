@@ -5,9 +5,10 @@ import type {
 } from '@reduxjs/toolkit/query';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { SESSION_TAG } from './tags';
-import { signOut, updateAccessToken } from './sharedActions';
+import { updateAccessToken, signOut } from './sharedActions';
 import { RefreshTokenSchema } from '.';
 import { config } from '../lib/config';
+import { Mutex } from 'async-mutex';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: config.API_ENDPOINT,
@@ -23,40 +24,51 @@ const baseQuery = fetchBaseQuery({
 });
 
 const getRefreshToken = () => localStorage.getItem('refreshToken');
-
+const mutex = new Mutex();
 const baseQueryWithReauth: BaseQueryFn<
   string | FetchArgs,
   unknown,
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
+  await mutex.waitForUnlock();
   let result = await baseQuery(args, api, extraOptions);
 
   if (result.error && result.error.status === 401) {
-    const refreshToken = getRefreshToken();
+    if (!mutex.isLocked()) {
+      const release = await mutex.acquire();
+      try {
+        const refreshToken = getRefreshToken();
 
-    if (refreshToken) {
-      const refreshResult = await baseQuery(
-        {
-          url: '/auth/refresh',
-          method: 'POST',
-          body: {
-            refreshToken,
-          },
-        },
-        api,
-        extraOptions
-      );
+        if (refreshToken) {
+          const refreshResult = await baseQuery(
+            {
+              url: '/auth/refresh',
+              method: 'POST',
+              body: {
+                refreshToken,
+              },
+            },
+            api,
+            extraOptions
+          );
 
-      const { accessToken } = refreshResult.data as RefreshTokenSchema;
+          const { accessToken } = refreshResult.data as RefreshTokenSchema;
 
-      if (accessToken) {
-        api.dispatch(updateAccessToken({ accessToken }));
-        result = await baseQuery(args, api, extraOptions);
-      } else {
-        api.dispatch(signOut());
+          if (accessToken) {
+            api.dispatch(updateAccessToken({ accessToken }));
+            result = await baseQuery(args, api, extraOptions);
+          } else {
+            api.dispatch(signOut());
+          }
+        } else {
+          api.dispatch(signOut());
+        }
+      } finally {
+        release();
       }
     } else {
-      api.dispatch(signOut());
+      await mutex.waitForUnlock();
+      result = await baseQuery(args, api, extraOptions);
     }
   }
 
