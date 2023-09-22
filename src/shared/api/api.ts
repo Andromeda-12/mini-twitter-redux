@@ -4,11 +4,11 @@ import type {
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { Mutex } from 'async-mutex';
 import { SESSION_TAG } from './tags';
 import { updateAccessToken, signOut } from './sharedActions';
 import { RefreshTokenSchema } from '.';
 import { config } from '../lib/config';
-import { Mutex } from 'async-mutex';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: config.API_ENDPOINT,

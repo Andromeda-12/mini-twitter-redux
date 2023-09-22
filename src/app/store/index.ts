@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { baseApi } from '@/shared/api';
+import { signOutModel } from '@/features/auth/sign-out';
 import { sessionModel } from '@/entities/session';
 import { notificationModel } from '@/shared/lib/notification';
-import notificationMiddleware from '@/shared/lib/notification/lib/middleware';
+import { baseApi } from '@/shared/api';
 
 export const rootReducer = combineReducers({
   [sessionModel.name]: sessionModel.reducer,
