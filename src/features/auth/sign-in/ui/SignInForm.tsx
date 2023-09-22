@@ -23,7 +23,7 @@ export const SignInForm = () => {
 
   const onSubmit = async (data: AuthLoginDto) => {
     await signIn(data).unwrap()
-    navigate({ pathname: location.state?.returnUrl ?? routes.MAIN_PAGE_PATH });
+    navigate({ pathname: location.state?.returnUrl ?? routes.NEWS_PATH });
   };
 
   return (
