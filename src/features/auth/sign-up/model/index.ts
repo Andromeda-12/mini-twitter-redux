@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { sessionApi, sessionModel } from '@/entities/session';
-import { userApi } from '@/entities/user';
-import { userModel } from '@/entities/user';
+import { userApi, userModel } from '@/entities/user';
 
 export interface SignUpFormData {
   firstName: string;
