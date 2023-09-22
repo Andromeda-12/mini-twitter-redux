@@ -1,7 +1,8 @@
-import { useUpdateAvatarMutation } from '../api';
+import { useUpdateAvatarMutation, useViewerQuery } from '../api';
 
 export const userModel = {
   hooks: {
     useUpdateAvatarMutation,
+    useViewerQuery,
   },
 };

@@ -1,5 +1,6 @@
 import {
   baseApi,
+  InitSchema,
   SESSION_TAG,
   SwaggerFileUploadDto,
   UserDetailSchema,
@@ -19,7 +20,13 @@ export const userApi = baseApi.injectEndpoints({
       },
       invalidatesTags: [SESSION_TAG],
     }),
+    viewer: build.query<InitSchema, void>({
+      query: () => ({
+        url: `/init`,
+      }),
+      providesTags: [SESSION_TAG],
+    }),
   }),
 });
 
-export const { useUpdateAvatarMutation } = userApi;
+export const { useUpdateAvatarMutation, useViewerQuery } = userApi;
