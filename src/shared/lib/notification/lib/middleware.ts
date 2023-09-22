@@ -2,7 +2,7 @@ import { AnyAction } from 'redux';
 import { Middleware } from '@reduxjs/toolkit';
 import { notificationModel } from '..';
 
-const notificationMiddleware: Middleware =
+export const notificationMiddleware: Middleware =
   store => next => (action: AnyAction) => {
     if (action.error) {
       const errorMessage = action.payload?.data?.message || 'An error occurred';
@@ -18,5 +18,3 @@ const notificationMiddleware: Middleware =
 
     return next(action);
   };
-
-export default notificationMiddleware;

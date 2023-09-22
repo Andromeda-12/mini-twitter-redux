@@ -15,5 +15,6 @@ export const appStore = configureStore({
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware()
       .concat(baseApi.middleware)
-      .concat(notificationMiddleware),
+      .concat(notificationModel.notificationMiddleware)
+      .concat(signOutModel.signOutListener.middleware),
 });

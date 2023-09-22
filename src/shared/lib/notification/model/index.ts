@@ -9,6 +9,7 @@ import {
   DEFAULT_NOTIFICATION_TYPE,
   DEFAULT_NOTIFICATIONS_POSITION,
 } from '../lib';
+import { notificationMiddleware } from '../lib/middleware';
 import { useTypedSelector } from '../..';
 
 interface NotificationsState {
@@ -68,4 +69,5 @@ export const notificationModel = {
     useNotifications,
     useNotificationsPosition,
   },
+  notificationMiddleware,
 };
