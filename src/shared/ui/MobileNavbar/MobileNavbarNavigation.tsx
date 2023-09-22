@@ -1,31 +1,21 @@
-import React from 'react';
-import {RouteInstance, RouteParams} from 'atomic-router';
-import {IconNames} from '@/shared/ui';
-import {MobileNavbarNavigationItem} from './MobileNavbarNavigationItem';
-
-export interface MobileNavbarNavigationItem {
-    route: RouteInstance<any>;
-    params?: RouteParams;
-    iconName: IconNames;
-    text: string;
-}
+import { NavigationItem } from '@/shared/lib';
+import { MobileNavbarNavigationItem } from './MobileNavbarNavigationItem';
 
 interface MobileNavbarNavigationProps {
-    items: MobileNavbarNavigationItem[];
+  items: NavigationItem[];
 }
 
 export const MobileNavbarNavigation = ({
-    items,
+  items,
 }: MobileNavbarNavigationProps) => (
-    <ul className="px-[16px] space-y-[16px]">
-        {items.map(({route, params, iconName, text}, index) => (
-            <MobileNavbarNavigationItem
-                route={route}
-                params={params}
-                text={text}
-                iconName={iconName}
-                key={`nav-item-${index}`}
-            />
-        ))}
-    </ul>
+  <ul className="px-[16px] space-y-[16px]">
+    {items.map(({ route, iconName, text }, index) => (
+      <MobileNavbarNavigationItem
+        route={route}
+        text={text}
+        iconName={iconName}
+        key={`nav-item-${index}`}
+      />
+    ))}
+  </ul>
 );
