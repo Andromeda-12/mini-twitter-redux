@@ -5,7 +5,11 @@
 
 body {
   font-family: 'Nunito', sans-serif;
-  @apply text-gray-dark text-base font-normal bg-background-gray scrollbar h-full;
+  @apply text-gray-dark text-base font-normal bg-background-gray scrollbar h-screen;
+}
+
+#root {
+  @apply h-full;
 }
 
 .scrollbar::-webkit-scrollbar {
