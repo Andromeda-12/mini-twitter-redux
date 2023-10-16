@@ -1,5 +1,5 @@
 import { SVGAttributes } from 'react';
-import clsx from 'clsx';
+import { cn } from '../lib';
 
 export type IconNames =
   | 'error'
@@ -19,7 +19,11 @@ export type IconNames =
   | 'import'
   | 'logo'
   | 'meatballs'
-  | 'pin';
+  | 'pin'
+  | 'heart'
+  | 'filled-heart'
+  | 'cross'
+  | 'cross-xl'
 
 interface IconProps extends SVGAttributes<SVGSVGElement> {
   iconName?: IconNames;
@@ -32,7 +36,7 @@ export const Icon = ({ iconName, className, ...props }: IconProps) => {
     <svg
       focusable="false"
       aria-hidden
-      className={clsx(
+      className={cn(
         'select-none fill-current inline-block text-inherit text-center w-6 h-6 outline-none',
         className
       )}

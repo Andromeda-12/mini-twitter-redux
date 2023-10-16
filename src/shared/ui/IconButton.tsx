@@ -1,10 +1,10 @@
 import React from 'react';
-import clsx from 'clsx';
 import { VariantProps, cva } from 'class-variance-authority';
 import { Icon, IconNames } from './Icon';
+import { cn } from '../lib';
 
 const iconButtonVariants = cva(
-  clsx(
+  cn(
     'text-base font-medium duration-300',
     'active:scale-95 outline-none focus-visible:ring ring-primary ring-offset-2',
     'disabled:cursor-not-allowed disabled:active:!scale-100'
@@ -20,6 +20,7 @@ const iconButtonVariants = cva(
         default: 'h-[40px] w-[40px]',
         sm: 'h-[32px] w-[32px]',
         lg: 'h-[46px] w-[46px]',
+        custom: '',
       },
       shape: {
         square: 'rounded-xl',
@@ -48,11 +49,11 @@ export interface IconButtonProps
 }
 
 export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ className, iconName, variant, size, ...props }, ref) => (
+  ({ className, iconName, variant, size, shape, ...props }, ref) => (
     <button
       ref={ref}
       type="button"
-      className={iconButtonVariants({ variant, size, className })}
+      className={cn(iconButtonVariants({ variant, size, shape }), className)}
       {...props}
     >
       <Icon iconName={iconName} />

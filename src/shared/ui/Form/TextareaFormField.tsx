@@ -26,7 +26,7 @@ export const TextareaFormField = ({
     rules={rules}
     render={({ field, fieldState: { error } }) => (
       <FormFieldContainer label={label} name={name} errorText={error?.message}>
-        <Textarea {...field} error={!!error} className="h-[100px]" />
+        <Textarea id={name} {...field} error={!!error} className="h-[100px]" />
       </FormFieldContainer>
     )}
   />

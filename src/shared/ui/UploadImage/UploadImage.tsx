@@ -13,6 +13,7 @@ interface PreviewProps {
 
 interface ImageUploadProps {
   className?: string;
+  id?: string;
   preview?: string | null | undefined;
   onChange?: (files: File) => void;
 }
@@ -36,6 +37,7 @@ export const Preview = ({
 
 export const UploadImage = ({
   className,
+  id,
   onChange,
   preview: previewFromProps,
 }: ImageUploadProps) => {
@@ -60,29 +62,36 @@ export const UploadImage = ({
   const handleIconClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
+    console.log('icon')
+
+    e.preventDefault();
     e.stopPropagation();
     setPreview(null);
   };
 
+  const handleIconKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (e.code !== 'Tab') e.preventDefault();
+    if (e.code === 'Enter' || e.code === 'Space') {
+      setPreview(null);
+    }
+  };
+
   return (
     <DropZone
+      id={id}
       onFilesDrop={handleInputChange}
-      className={clsx(
-        ' p-[8px] flex justify-between items-center bg-white rounded-xl border border-gray',
-        'cursor-pointer',
-        preview ? 'h-[64px]' : 'h-[46px]',
-        className
-      )}
+      className={clsx(preview ? 'h-[64px]' : 'h-[46px] active:scale-95', className)}
     >
       {preview ? (
         <>
           <Preview alt="Cover" fileName={fileName} preview={preview} />
 
           <IconButton
-            className="!h-[24px] !w-[24px] !p-0"
-            variant="cleared"
+            className="!h-[24px] !w-[24px] "
+            variant="ghost"
             iconName="meatballs"
-            onClick={handleIconClick}
+            onClickCapture={handleIconClick}
+            onKeyDownCapture={handleIconKeyDown}
           />
         </>
       ) : (
