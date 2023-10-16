@@ -1,7 +1,6 @@
 import {
   AuthLoginDto,
   baseApi,
-  InitSchema,
   LoginSchema,
   RegisterSchema,
   SESSION_TAG,
@@ -25,13 +24,7 @@ export const sessionApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [SESSION_TAG],
     }),
-    me: build.query<InitSchema, void>({
-      query: () => ({
-        url: `/init`,
-      }),
-      providesTags: [SESSION_TAG],
-    }),
   }),
 });
 
-export const { useSignInMutation, useSignUpMutation, useMeQuery } = sessionApi;
+export const { useSignInMutation, useSignUpMutation } = sessionApi;
