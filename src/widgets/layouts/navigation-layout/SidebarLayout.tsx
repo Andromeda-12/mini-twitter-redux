@@ -34,9 +34,10 @@ export const SidebarLayout = ({
 
       <div
         className={clsx(
-          'w-full h-full duration-300',
-          'md:px-[30px] md:py-[24px]',
-          isSidebarCollapsed ? 'md:pl-[94px]' : 'md:pl-[306px]'
+          'w-full duration-300',
+          'md:px-[50px] md:py-[24px]',
+          // sidebar width = 64 and 276
+          isSidebarCollapsed ? 'md:pl-[114px]' : 'md:pl-[326px]'
         )}
       >
         {children}

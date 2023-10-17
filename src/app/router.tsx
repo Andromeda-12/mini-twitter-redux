@@ -3,6 +3,7 @@ import { NotFoundPage } from '@/pages/404';
 import { SignInPage } from '@/pages/sign-in';
 import { SignUpPage } from '@/pages/sign-up';
 import { NewsPage } from '@/pages/news';
+import { ProfilePage } from '@/pages/profile';
 import { AuthLayout, NavigationLayout } from '@/widgets/layouts';
 import { routes } from '@/shared/constants';
 import { AuthGuard, GuestGuard } from './guards';
@@ -39,6 +40,10 @@ export const routesConfig: RouteObject[] = [
           {
             path: NewsPage.Route,
             element: <NewsPage.View />,
+          },
+          {
+            path: ProfilePage.Route,
+            element: <ProfilePage.View />,
           },
         ],
       },

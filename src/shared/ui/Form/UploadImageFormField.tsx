@@ -12,6 +12,7 @@ interface UploadImageFormFieldProps {
   name: string;
   rules: RegisterOptions<FieldValues, string>;
   label: string;
+  className?: string
 }
 
 export const UploadImageFormField = ({
@@ -19,6 +20,7 @@ export const UploadImageFormField = ({
   name,
   rules,
   label,
+  className,
 }: UploadImageFormFieldProps) => (
   <Controller
     control={control}
@@ -26,7 +28,7 @@ export const UploadImageFormField = ({
     rules={rules}
     render={({ field: { onChange }, fieldState: { error } }) => (
       <FormFieldContainer label={label} name={name} errorText={error?.message}>
-        <UploadImage onChange={onChange} />
+        <UploadImage id={name} className={className} onChange={onChange} />
       </FormFieldContainer>
     )}
   />

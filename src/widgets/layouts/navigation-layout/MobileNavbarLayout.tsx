@@ -17,7 +17,7 @@ export const MobileNavbarLayout = ({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className={clsx('flex', className)}>
+    <div className={clsx('flex h-full', className)}>
       <MobileNavbar
         isOpen={isOpen}
         navigationItems={navigationItems}

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { sessionApi, sessionModel } from '@/entities/session';
-import { userApi, userModel } from '@/entities/user';
+import { userModel } from '@/entities/user';
 
 export interface SignUpFormData {
   firstName: string;
@@ -22,7 +22,7 @@ export const signUpThunk = createAsyncThunk<
 
   if (body.image) {
     await dispatch(
-      userApi.endpoints.updateAvatar.initiate({ file: body.image })
+      userModel.userApi.endpoints.updateAvatar.initiate({ file: body.image })
     );
   }
 });

@@ -13,7 +13,7 @@ export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
             {...props}
             ref={ref}
             className={clsx(
-                'text-base font-normal cursor-pointer',
+                'text-base font-normal cursor-pointer block',
                 {
                     'text-gray-500 !cursor-not-allowed': disabled,
                 },
