@@ -16,3 +16,6 @@ export * from './MobileNavbar';
 export * from './Form';
 export * from './UploadImage';
 export * from './PageTitle';
+export * from './ScrollArea';
+export * from './Modal';
+export * from './Post';

@@ -5,7 +5,7 @@ import type {
 } from '@reduxjs/toolkit/query';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Mutex } from 'async-mutex';
-import { SESSION_TAG } from './tags';
+import { POST_TAG, SESSION_TAG } from './tags';
 import { updateAccessToken, signOut } from './sharedActions';
 import { RefreshTokenSchema } from '.';
 import { config } from '../lib/config';
@@ -76,7 +76,7 @@ const baseQueryWithReauth: BaseQueryFn<
 };
 
 export const baseApi = createApi({
-  tagTypes: [SESSION_TAG],
+  tagTypes: [SESSION_TAG, POST_TAG],
   reducerPath: 'api',
   baseQuery: baseQueryWithReauth,
   endpoints: () => ({}),

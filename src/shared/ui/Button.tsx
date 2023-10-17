@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { VariantProps, cva } from 'class-variance-authority';
+import { cn } from '../lib';
 
 const buttonVariants = cva(
   clsx(
@@ -14,7 +15,7 @@ const buttonVariants = cva(
         default:
           'bg-primary text-white hover:bg-primary/90 disabled:bg-gray disabled:text-black/10',
         outline:
-          'border border-gray dark:text-white bg-transparent disabled:bg-gray disabled:text-black/10',
+          'border border-primary text-primary bg-transparent disabled:bg-gray disabled:text-black/10',
         ghost: 'hover:bg-primary hover:text-white',
         link: 'text-primary underline-offset-4 hover:underline',
       },
@@ -39,7 +40,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, ...props }, ref) => (
     <button
       ref={ref}
-      className={buttonVariants({ variant, size, className })}
+      className={cn(buttonVariants({ variant, size}), className)}
       {...props}
     />
   )

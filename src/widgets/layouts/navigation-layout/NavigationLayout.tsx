@@ -33,7 +33,9 @@ export const NavigationLayout = () => (
       className="hidden md:block"
       navigationItems={navigationItems}
     >
-      <Outlet />
+      <div className="h-full max-w-6xl mx-auto">
+        <Outlet />
+      </div>
     </SidebarLayout>
 
     <NotificationHub className="fixed mb-5 w-full md:w-fit" />

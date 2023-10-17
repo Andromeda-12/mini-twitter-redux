@@ -1,6 +1,6 @@
 import { getImageUrl } from '@/shared/lib';
 import { User, UserSkeleton } from './User';
-import { useViewerQuery } from '..';
+import { useViewerQuery } from '../api';
 
 export const Viewer = () => {
   const { data: viewer } = useViewerQuery();

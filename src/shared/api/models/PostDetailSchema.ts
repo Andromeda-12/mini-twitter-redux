@@ -12,11 +12,11 @@ export type PostDetailSchema = {
     title: string;
     text: string;
     creatorId: number;
-    likeCount: number;
+    likesCount: number;
     /**
      * Show if current user liked post
      */
-    isLiked: number;
+    isLiked: boolean;
     creator: UserSchema;
     tags: Array<TagSchema>;
     imageId: number;

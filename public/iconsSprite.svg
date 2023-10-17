@@ -13,7 +13,7 @@
       stroke-linecap="round" stroke-linejoin="round" />
   </symbol>
 
-  <symbol width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" id="cross"
+  <symbol viewBox="0 0 24 24" fill="none" stroke="currentColor" id="cross"
     xmlns="http://www.w3.org/2000/svg">
     <path d="M16 8L8 16" stroke-linecap="round" stroke-linejoin="round" />
     <path d="M8 8L16 16" stroke-linecap="round" stroke-linejoin="round" />
@@ -30,7 +30,7 @@
     <path d="M5 2L21 18" stroke="currentColor" />
   </symbol>
 
-  <symbol width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" id="eye"
+  <symbol viewBox="0 0 24 24" fill="none" stroke="currentColor" id="eye"
     xmlns="http://www.w3.org/2000/svg">
     <circle cx="12" cy="12" r="3.5" />
     <path
@@ -38,7 +38,7 @@
     />
   </symbol>
 
-  <symbol width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" id="home"
+  <symbol viewBox="0 0 24 24" fill="none" stroke="currentColor" id="home"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -49,7 +49,7 @@
       stroke-linecap="round" stroke-linejoin="round" />
   </symbol>
 
-  <symbol width="24" height="24" viewBox="0 0 24 24" fill="none" id="group"
+  <symbol viewBox="0 0 24 24" fill="none" id="group"
     xmlns="http://www.w3.org/2000/svg">
     <circle cx="12" cy="8" r="2.5" stroke="currentColor" stroke-linecap="round" />
     <circle cx="6.5" cy="8.5" r="2" stroke="currentColor" stroke-linecap="round" />
@@ -131,7 +131,8 @@
     <path d="M14 8L10 12L14 16" stroke-linecap="round" stroke-linejoin="round" />
   </symbol>
 
-  <symbol width="24" height="24" viewBox="0 0 24 24" fill="currentColor" id="error" xmlns="http://www.w3.org/2000/svg">
+  <symbol viewBox="0 0 24 24" fill="currentColor" id="error"
+    xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_927_577)">
       <path
         d="M11.9992 24C11.2515 24 10.4926 23.8103 9.82297 23.4197L3.19382 19.5917C1.85459 18.8105 1.01758 17.3708 1.01758 15.8196V8.186C1.01758 6.63474 1.85459 5.19507 3.19382 4.41386L9.82297 0.58591C11.1622 -0.195303 12.8251 -0.195303 14.1754 0.58591L20.8046 4.41386C22.1438 5.19507 22.9808 6.63474 22.9808 8.186V15.8196C22.9808 17.3708 22.1438 18.8105 20.8046 19.5917L14.1754 23.4197C13.5058 23.8103 12.7469 24 11.9992 24Z"
@@ -147,4 +148,23 @@
     </defs>
   </symbol>
 
+  <symbol viewBox="0 0 24 24" fill="none" stroke="currentColor" id="heart"
+    xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M4.45067 13.9082L11.4033 20.4395C11.6428 20.6644 11.7625 20.7769 11.9037 20.8046C11.9673 20.8171 12.0327 20.8171 12.0963 20.8046C12.2375 20.7769 12.3572 20.6644 12.5967 20.4395L19.5493 13.9082C21.5055 12.0706 21.743 9.0466 20.0978 6.92607L19.7885 6.52734C17.8203 3.99058 13.8696 4.41601 12.4867 7.31365C12.2913 7.72296 11.7087 7.72296 11.5133 7.31365C10.1304 4.41601 6.17972 3.99058 4.21154 6.52735L3.90219 6.92607C2.25695 9.0466 2.4945 12.0706 4.45067 13.9082Z"
+      stroke="currentColor" stroke-width="1.1" />
+  </symbol>
+
+  <symbol viewBox="0 0 24 24" fill="currentColor" stroke="currentColor"
+    id="filled-heart"
+    xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M4.45067 13.9082L11.4033 20.4395C11.6428 20.6644 11.7625 20.7769 11.9037 20.8046C11.9673 20.8171 12.0327 20.8171 12.0963 20.8046C12.2375 20.7769 12.3572 20.6644 12.5967 20.4395L19.5493 13.9082C21.5055 12.0706 21.743 9.0466 20.0978 6.92607L19.7885 6.52734C17.8203 3.99058 13.8696 4.41601 12.4867 7.31365C12.2913 7.72296 11.7087 7.72296 11.5133 7.31365C10.1304 4.41601 6.17972 3.99058 4.21154 6.52735L3.90219 6.92607C2.25695 9.0466 2.4945 12.0706 4.45067 13.9082Z"
+      stroke="currentColor" stroke-width="1.1" />
+  </symbol>
+
+  <symbol viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" id="cross-xl">
+    <path d="M6 6L18 17.9568M6 18L18 6.04322" stroke="currentColor" stroke-width="1.5"
+      stroke-linecap="round" stroke-linejoin="round" />
+  </symbol>
 </svg>
