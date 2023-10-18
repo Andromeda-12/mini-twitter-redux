@@ -53,4 +53,6 @@ export const routesConfig: RouteObject[] = [
   { path: '*', element: <Navigate to={routes.NOT_FOUND_PAGE_PATH} replace /> },
 ];
 
-export const router = createBrowserRouter(routesConfig);
+export const router = createBrowserRouter(routesConfig, {
+  basename: import.meta.env.BASE_URL,
+});

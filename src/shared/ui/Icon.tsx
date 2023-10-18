@@ -23,7 +23,7 @@ export type IconNames =
   | 'heart'
   | 'filled-heart'
   | 'cross'
-  | 'cross-xl'
+  | 'cross-xl';
 
 interface IconProps extends SVGAttributes<SVGSVGElement> {
   iconName?: IconNames;
@@ -42,7 +42,7 @@ export const Icon = ({ iconName, className, ...props }: IconProps) => {
       )}
       {...props}
     >
-      <use xlinkHref={`/${fileName}#${iconName}`} />
+      <use xlinkHref={`${import.meta.env.BASE_URL}${fileName}#${iconName}`} />
     </svg>
   );
 };

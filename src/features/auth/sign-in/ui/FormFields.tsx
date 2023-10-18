@@ -20,7 +20,7 @@ export const EmailField = ({ control, disabled }: FieldsProps) => (
       required: 'Это поле обязательное',
       pattern: {
         value: EMAIL_REGEXP,
-        message: 'Введите корректную почта',
+        message: 'Введите корректную почту',
       },
     }}
     disabled={disabled}
