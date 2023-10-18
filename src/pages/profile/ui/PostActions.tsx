@@ -5,10 +5,20 @@ import {
   DropdownMenuItem,
   IconButton,
 } from '@/shared/ui';
+import { profileModel } from '../model';
 
-export const PostActions = () => {
+interface PostActionsProps {
+  postId: number;
+}
+
+export const PostActions = ({ postId }: PostActionsProps) => {
+  const [deletePost] = profileModel.hooks.useDeletePostMutation();
+
   const handleEditButtonClick = () => {};
-  const hanldeDeleteButtonClick = () => {};
+
+  const hanldeDeleteButtonClick = async () => {
+    await deletePost({ postId });
+  };
 
   return (
     <DropdownMenu>
