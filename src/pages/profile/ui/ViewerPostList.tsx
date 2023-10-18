@@ -19,7 +19,7 @@ export const ViewerPostList = () => {
   if (posts)
     return (
       <div className="space-y-6 overflow-hidden w-full">
-        {posts?.map(post => (
+        {[...posts].reverse().map(post => (
           <ViewerPost post={post} key={`viewer-post-${post.id}`} />
         ))}
       </div>
@@ -61,7 +61,7 @@ const ViewerPost = ({ post }: PostProps) => {
               className="max-h-[50px] overflow-hidden break-words"
               text={title}
             />
-            <PostActions />
+            <PostActions postId={post.id} />
           </div>
           <PostContent className="mb-4" text={text} />
           <TagList tags={tags} />
