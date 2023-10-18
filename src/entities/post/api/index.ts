@@ -1,7 +1,21 @@
 import { baseApi, CreatePostDto, POST_TAG, PostSchema } from '@/shared/api';
 
-export const sessionApi = baseApi.injectEndpoints({
+export const postApi = baseApi.injectEndpoints({
   endpoints: build => ({
+    getPosts: build.query<
+      PostSchema[],
+      {
+        userId?: number;
+      }
+    >({
+      query: ({ userId }) => ({
+        url: `/post`,
+        params: {
+          userId,
+        },
+      }),
+      providesTags: [POST_TAG],
+    }),
     createPost: build.mutation<PostSchema, CreatePostDto>({
       query: body => ({
         url: `/post`,
@@ -25,7 +39,19 @@ export const sessionApi = baseApi.injectEndpoints({
       },
       invalidatesTags: [POST_TAG],
     }),
+    deletePost: build.mutation<PostSchema, { postId: number }>({
+      query: ({ postId }) => ({
+        url: `/post/${postId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: [POST_TAG],
+    }),
   }),
 });
 
-export const { useCreatePostMutation, useUpdatePostImageMutation } = sessionApi;
+export const {
+  useCreatePostMutation,
+  useUpdatePostImageMutation,
+  useDeletePostMutation,
+  useGetPostsQuery,
+} = postApi;
