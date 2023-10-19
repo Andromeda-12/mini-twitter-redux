@@ -76,7 +76,7 @@ const baseQueryWithReauth: BaseQueryFn<
 };
 
 export const baseApi = createApi({
-  tagTypes: [SESSION_TAG, POST_TAG],
+  tagTypes: [SESSION_TAG, POST_TAG, DETAILED_POST_TAG],
   reducerPath: 'api',
   baseQuery: baseQueryWithReauth,
   endpoints: () => ({}),

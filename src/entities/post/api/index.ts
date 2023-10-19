@@ -1,4 +1,12 @@
-import { baseApi, CreatePostDto, POST_TAG, PostSchema } from '@/shared/api';
+import {
+  baseApi,
+  CreatePostDto,
+  DETAILED_POST_TAG,
+  POST_TAG,
+  PostDetailSchema,
+  PostSchema,
+} from '@/shared/api';
+import { UpdatePostData } from '../lib';
 
 export const postApi = baseApi.injectEndpoints({
   endpoints: build => ({
@@ -16,6 +24,19 @@ export const postApi = baseApi.injectEndpoints({
       }),
       providesTags: [POST_TAG],
     }),
+
+    getPost: build.query<
+      PostDetailSchema,
+      {
+        postId?: number;
+      }
+    >({
+      query: ({ postId }) => ({
+        url: `/post/${postId}`,
+      }),
+      providesTags: [DETAILED_POST_TAG],
+    }),
+
     createPost: build.mutation<PostSchema, CreatePostDto>({
       query: body => ({
         url: `/post`,
@@ -24,6 +45,16 @@ export const postApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [POST_TAG],
     }),
+
+    updatePost: build.mutation<PostSchema, UpdatePostData>({
+      query: ({ postId, body }) => ({
+        url: `/post/${postId}`,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: [POST_TAG, DETAILED_POST_TAG],
+    }),
+
     updatePostImage: build.mutation<
       PostSchema,
       { postId: number; image: File }
@@ -39,6 +70,7 @@ export const postApi = baseApi.injectEndpoints({
       },
       invalidatesTags: [POST_TAG],
     }),
+
     deletePost: build.mutation<PostSchema, { postId: number }>({
       query: ({ postId }) => ({
         url: `/post/${postId}`,
@@ -52,6 +84,8 @@ export const postApi = baseApi.injectEndpoints({
 export const {
   useCreatePostMutation,
   useUpdatePostImageMutation,
+  useUpdatePostMutation,
   useDeletePostMutation,
   useGetPostsQuery,
+  useGetPostQuery,
 } = postApi;
